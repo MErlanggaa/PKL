@@ -56,6 +56,17 @@ public function dashboardHilmi()
             ->paginate(50);
         return view('news.admin', ['data' => $data]);
     }
+    public function searcch(Request $request)
+    {
+        $search = $request->search;
+        $data = News::select('id', 'judul', 'isi', 'tanggal')
+            ->when($search, function ($query, $search) {
+                return $query->where('judul', 'like', "%{$search}%")
+                    ->orWhere('tanggal', 'like', "%{$search}%");
+            })
+            ->paginate(50);
+        return view('news.admin', ['data' => $data]);
+    }
     public function srch(Request $request)
     {
         $search = $request->search;

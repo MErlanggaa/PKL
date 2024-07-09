@@ -17,16 +17,28 @@
 @endsection
 
 @section('about')
-    <div class="bg-gray-100 py-12 sm:py-20">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-            <div class="max-w-2xl mx-auto">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900">About As</h2>
-                <p class="mt-4 text-lg sm:text-xl text-gray-600 leading-7">
-                    Behind the success of News Portal, there is a passionate and experienced team, ready to provide the best for you. We are a diverse group of individuals, with different backgrounds but one common vision: to provide the latest and most trusted news information to our readers.
-                </p>
-            </div>
+<div class="bg-white">
+    <header class="bg-white-500 text-white text-center py-12">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900">About Us</h2>
+    </header>
+
+    <section class="text-center py-12 px-4">
+        <div class="bg-gray-500">
+      <h2 class="text-2xl text-white font-bold">Mission And Values</h2>
+      <p class="mt-4 text-white max-w-2xl mx-auto">
+        Our mission is to provide exceptional healthcare services with a focus on availability, reliability, and support.
+      </p>
+      <div class="flex justify-center space-x-8 mt-8 animate-fadeIn">
+        <div class="transition transform hover:scale-110">
+          <h3 class="text-xl text-white font-bold" >85+</h3>
+          <p class="text-white">Specialists</p>
         </div>
-    </div>
+        <div class="transition transform hover:scale-110">
+          <h3 class="text-xl text-white font-bold" >25+</h3>
+          <p class="text-white">Years of Experience</p>
+        </div>
+      </div></div>
+    </section>
 @endsection
 
 @section('content')

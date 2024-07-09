@@ -5,7 +5,7 @@
         if ($userRole === 'erlangga') {
             $dashboardRoute = route('dashboard.erlangga');
         } elseif ($userRole === 'hilmi') {
-            $dashboardRoute = route('news.hilmi');
+            $dashboardRoute = route('dashboard.hilmi');
         } else {
             $dashboardRoute = route('home'); // Default route if role not defined
         }

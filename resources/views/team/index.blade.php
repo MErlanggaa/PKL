@@ -1,6 +1,20 @@
 @extends('template.main')
 
 @section('content')
+@php
+    $dashboardRoute = '';
+    if (auth()->check()) {
+        $userRole = auth()->user()->role;
+        if ($userRole === 'erlangga') {
+            $dashboardRoute = route('dashboard.erlangga');
+        } elseif ($userRole === 'hilmi') {
+            $dashboardRoute = route('dashboard.hilmi');
+        } else {
+            $dashboardRoute = route('home'); // Default route if role not defined
+        }
+    }
+@endphp
+
 <div class="row">
     <div class="col-12">
       <div class="card mb-4">
@@ -58,6 +72,6 @@
           
         </div>
       </div>
-    </div> <a href="{{ route('news.index') }}" class="btn btn-primary btn-block">Back</a>
+    </div>      <a href="{{ $dashboardRoute }}" class="btn btn-primary btn-block">Back</a>
   </div>
 @endsection

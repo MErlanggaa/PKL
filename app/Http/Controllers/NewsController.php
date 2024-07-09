@@ -24,7 +24,7 @@ class NewsController extends Controller
             $role = Auth::user()->role;
     
             if ($role === 'hilmi') {
-                return view('news.hilmi.index', compact('news', 'tim', 'berita_terbaru'));
+                return view('news.hilmi', compact('news', 'tim', 'berita_terbaru'));
             } elseif ($role === 'erlangga') {
                 return view('news.erlangga', compact('news', 'tim', 'berita_terbaru'));
             }

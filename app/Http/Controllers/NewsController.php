@@ -157,9 +157,14 @@ public function dashboardHilmi()
 
         // Tampilkan pesan sukses menggunakan SweetAlert
         Alert::success('Berhasil', 'Berita berhasil ditambahkan!');
-
-        // Redirect ke halaman index berita dengan pesan status
-        return redirect()->route('news.index')->with('status', 'store');
+        if (auth()->user()->role == 'hilmi') {
+            // Redirect to dashboard.hilmi if role is hilmi
+            return redirect()->route('dashboard.hilmi')->with('status', 'store');
+        } else {
+            // Redirect to default news index with success message
+            Alert::success('Berhasil', 'Berita berhasil ditambahkan!');
+            return redirect()->route('news.index')->with('status', 'store');
+        }
     }
 
     public function show($id)
@@ -168,11 +173,17 @@ public function dashboardHilmi()
     $news = News::findOrFail($id);
     $latestNews = News::orderBy('tanggal', 'desc')->take(3)->get();
     
+    if (Auth::check()) {
+        $role = Auth::user()->role;
 
-    // $latestNews = News::orderBy('tanggal', 'desc') // Urutkan berdasarkan tanggal secara menurun
-    // ->where('tanggal', '<=', now()) // Ambil hanya berita dengan tanggal kurang dari atau sama dengan hari ini
-    // ->take(5) // Ambil 5 berita terbaru
-    // ->get();
+        if ($role === 'hilmi') {
+            return view('news.hilmi',  compact('news', 'latestNews'));
+
+        } elseif ($role === 'erlangga') {
+            return view('news.erlangga',  compact('news', 'latestNews'));
+
+        }
+    }
 
 return view('news.show', compact('news', 'latestNews'));
 

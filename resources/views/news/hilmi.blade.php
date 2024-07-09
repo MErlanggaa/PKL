@@ -2,15 +2,18 @@
 
 @section('hero')
 
-    <div class="relative bg-cover bg-center bg-no-repeat h-96">
-        <div class="bg-black bg-opacity-50 h-full flex items-center">
-            <div class="mx-auto max-w-7xl text-center text-white">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">Welcome To The News Portal</h1>
-                <p class="mt-4 text-lg sm:text-xl">Find the latest and most trusted news here.</p>
-            </div>
-        </div>
-    </div> 
-    <script src="{{ asset('/assets/js/script.js') }}"></script>
+@if (isset($berita_terbaru))
+<div class="relative bg-white py-12 sm:py-20">
+    <div class="absolute inset-0">
+        <img class="w-full h-full object-cover" src="{{ asset($berita_terbaru->foto) }}" alt="{{ $berita_terbaru->judul }}">
+        <div class="absolute inset-0 bg-gray-900 opacity-50"></div>
+    </div>
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-center justify-center text-center">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white">Selamat Datang di Portal Berita</h1>
+        <p class="mt-4 text-lg sm:text-xl text-white">Temukan berita terkini dan terpercaya di sini.</p>
+    </div>
+</div>
+@endif
 @endsection
 
 @section('about')
@@ -47,7 +50,7 @@
                     <!-- Artikel -->
                     <article class="flex flex-col overflow-hidden rounded-lg shadow-lg transition-colors duration-300 ease-in-out hover:bg-blue-100">
                         <a href="{{ route('news.show', $item->id) }}">
-                            <img src="{{ asset('storage/' . $item->foto) }}" class="h-64 w-full object-cover" />
+                            <img id="croppedImage" src="{{ asset($item->foto) }}" class="h-64 w-full object-cover" alt="{{ $item->judul }}" />
                             <div class="px-6 py-4">
                                 <h3 class="mt-2 text-xl font-semibold leading-tight text-gray-900">{{ $item->judul }}</h3>
                                 <div class="text-xs text-gray-500 mt-2">{{ $item->tanggal }}, {{ optional($item->created_at)->format('M d, Y') }}</div>
@@ -61,27 +64,33 @@
 @endsection
 
 @section('team')
-<div class="py-20 bg-gray-50">
-    @foreach ($tim as $t)
-    <div class="container mx-auto px-6 md:px-12 xl:px-32">
-        <div class="mb-16 text-center">
-            <h2 class="mb-4 text-center text-2xl text-gray-900 font-bold md:text-4xl">Meet Our Team</h2>
-            <p class="text-gray-600 lg:w-8/12 lg:mx-auto">Each member of our team is not only experienced in their field, but also committed to making meaningful contributions</p>
+<div class="bg-white py-12 sm:py-20">
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 ">
+        <div class="text-center">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 ">Meet Our Team</h2>
+            <p class="mt-4 text-lg sm:text-xl text-gray-600 leading-7 max-w-2xl mx-auto">
+                Kenali tim kami yang bekerja keras untuk menyediakan berita terbaik untuk Anda.
+            </p>
         </div>
-        <div class="grid gap-12 items-center md:grid-cols-3">
-            <div class="space-y-4 text-center">
-                <img src="{{ asset('storage/' . $t->image) }}" alt="woman" loading="lazy" width="640" height="805">
-                <div>
-                    <h4 class="text-2xl">{{ $t->name }}</h4>
-                    <h6 class="block text-sm text-gray-500">{{ $t->position }}</h6>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 flex">
+            <!-- Main Content -->
+            @foreach ($tim as $t)
+
+            <div class="flex-1 pl-8 pr-8">
+                <div class="bg-white p-6 rounded-lg shadow flex items-center">
+                    <img src="{{ asset('storage/' . $t->image) }}" class="w-24 h-24 object-cover rounded-full mr-4" alt="Profile Image">
+                    <div>
+                        <h5 class="text-2xl font-bold mb-2">{{ $t->name }}</h5>
+                        <p class="text-sm text-gray-600">{{ $t->position }}</p>
+                    </div>
                 </div>
             </div>
-
+            @endforeach
         </div>
     </div>
-</div>@endforeach
+</div>
 @endsection
-
 @section('contact')
     <div class="bg-gray-800 text-gray-300 py-8">
         <div class="container mx-auto px-6">

@@ -18,10 +18,13 @@
 </head>
 <body>
 
-@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit']))
+@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit','dashboard.erlangga','dashboard.hilmi']))
     @include('layouts.bar.navbar')
 @endif
 
+@if (Route::currentRouteName() === 'dashboard.erlangga' || Route::currentRouteName() === 'dashboard.hilmi')
+@include('layouts.bar.navbaruser')
+@endif
 <div class="row">
   @yield('hero')
 @yield('about')
@@ -31,7 +34,7 @@
 
 </div>
 
-@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit' , 'news.search']))
+@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit' , 'news.search','team.index','news']))
 @include('layouts.bar.footer')
  
 @endif

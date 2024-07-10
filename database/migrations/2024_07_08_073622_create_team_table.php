@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('position');
-            $table->string('image');            
+            $table->string('image');
+            $table->enum('role', ['hilmi', 'erlangga']); // Menggunakan tipe enum dengan opsi 'hilmi' dan 'erlangga'
             $table->timestamps();
         });
     }

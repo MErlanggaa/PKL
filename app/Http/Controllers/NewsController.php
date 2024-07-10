@@ -9,41 +9,51 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 
 class NewsController extends Controller
 {
-    public function index()
+    
+    public function index(Request $request)
     {
-        $news = News::all();
-        $berita_terbaru = $news->first();
-        $tim = Team::all();
-    
-        if (Auth::check()) {
-            $role = Auth::user()->role;
-    
-            if ($role === 'hilmi') {
-                return view('news.hilmi', compact('news', 'tim', 'berita_terbaru'));
-            } elseif ($role === 'erlangga') {
-                return view('news.erlangga', compact('news', 'tim', 'berita_terbaru'));
-            }
+        $role = session('guest_role');
+        
+        // Your logic based on the role
+        if ($role == 'erlangga') {
+            // Logic for Erlangga
+            $news = News::where('role', 'erlangga')->get();
+            $tim = Team::where('role', 'erlangga')->get();
+            $berita_terbaru = $news->first();
+            return view('news.erlangga', compact('news','tim','berita_terbaru'));
+        } elseif ($role == 'hilmi') {
+            // Logic for Hilmi
+            $news = News::where('role', 'hilmi')->get();
+            $tim = Team::where('role', 'hilmi')->get();
+            $berita_terbaru = $news->first();
+            return view('news.hilmi', compact('news','tim','berita_terbaru'));
         }
-    
-        // Default fallback
-        return view('news.index', compact('news', 'tim', 'berita_terbaru'));
-    }
-    public function dashboardErlangga()
-{
-    // Logic for Erlangga's dashboard
-    return view('news.erlangga');
-}
 
-public function dashboardHilmi()
-{
-    // Logic for Hilmi's dashboard
-    return view('news.hilmi');
-}
+        // Default logic if no role is set
+        return redirect('/');
+    }
+    public function indexx()
+    {
+        if (Auth::check()) {
+            $userRole = Auth::user()->role;
+    
+            // Paginate news based on the user's role
+            $data = News::where('role', $userRole)->orderBy('created_at', 'desc')->paginate(10);
+    
+            return view('news.admin', compact('data'));
+        } else {
+            // Redirect guests to the login page
+            return redirect()->route('login'); // Or handle guests in another way if needed
+        }
+    }
+    
+
 
     public function search(Request $request)
     {
@@ -56,17 +66,7 @@ public function dashboardHilmi()
             ->paginate(50);
         return view('news.admin', ['data' => $data]);
     }
-    public function searcch(Request $request)
-    {
-        $search = $request->search;
-        $data = News::select('id', 'judul', 'isi', 'tanggal')
-            ->when($search, function ($query, $search) {
-                return $query->where('judul', 'like', "%{$search}%")
-                    ->orWhere('tanggal', 'like', "%{$search}%");
-            })
-            ->paginate(50);
-        return view('news.admin', ['data' => $data]);
-    }
+  
     public function srch(Request $request)
     {
         $search = $request->search;
@@ -97,86 +97,65 @@ public function dashboardHilmi()
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
-            'tanggal' => 'required',
-            'foto' => 'required|image|mimes:png,jpg,jpeg|',
-            'isi' => 'required'
+            'judul' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'foto' => 'required|image|mimes:png,jpg,jpeg',
+            'isi' => 'required|string',
         ]);
-
+    
+        // Simpanan gambar
         $filename = '';
-
-        if ($request->has('cropped_image')) {
-            $data = $request->cropped_image;
-
-            list($type, $data) = explode(';', $data);
-            list(, $data) = explode(',', $data);
-            $imageData = base64_decode($data);
-            $image_name = "/storage/" . time() . '_' . Str::random(10) . '.png';
-            $path = public_path() . $image_name;
-
-            if (!File::isDirectory(public_path('storage'))) {
-                File::makeDirectory(public_path('storage'), 0777, true, true);
-            }
-
-            file_put_contents($path, $imageData);
-
-            $filename = $image_name;
-        } else {
-            $ext = $request->foto->getClientOriginalExtension();
-            $filename = rand(9, 999) . '_' . time() . '.' . $ext;
-            $request->foto->move(public_path('storage'), $filename);
-            $filename = 'storage' . $filename;
+        if ($request->has('foto')) {
+            $foto = $request->file('foto');
+            $filename = 'storage/' . time() . '_' . Str::random(10) . '.' . $foto->getClientOriginalExtension();
+            $foto->move(public_path('storage'), $filename);
         }
-
+    
+        // Manipulasi isi berita
         $description = $request->isi;
-
         $dom = new \DomDocument();
         $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
+    
+        // Manipulasi gambar dalam isi berita
         $images = $dom->getElementsByTagName('img');
-
-        foreach ($images as $k => $img) {
+        foreach ($images as $img) {
             $data = $img->getAttribute('src');
-
             if (strpos($data, 'data:image') === 0) {
                 list($type, $data) = explode(';', $data);
                 list(, $data) = explode(',', $data);
-
                 $imageData = base64_decode($data);
                 $image_name = "/upload/" . time() . '_' . Str::random(10) . '.png';
                 $path = public_path() . $image_name;
-
+    
                 if (!File::isDirectory(public_path('upload'))) {
                     File::makeDirectory(public_path('upload'), 0777, true, true);
                 }
-
+    
                 file_put_contents($path, $imageData);
-
+    
                 $img->removeAttribute('src');
                 $img->setAttribute('src', $image_name);
             }
         }
-
+    
         $description = $dom->saveHTML();
-
+    
+        // Simpan berita ke dalam database
         News::create([
             'judul' => $request->judul,
             'tanggal' => $request->tanggal,
-            'foto' => $filename, 
-            'isi' => $description 
+            'foto' => $filename,
+            'isi' => $description,
+            'role' => auth()->user()->role, // Mengambil role dari pengguna yang sedang login
         ]);
-
+    
         // Tampilkan pesan sukses menggunakan SweetAlert
         Alert::success('Berhasil', 'Berita berhasil ditambahkan!');
-        if (auth()->user()->role == 'hilmi') {
-            // Redirect to dashboard.hilmi if role is hilmi
-            return redirect()->route('dashboard.hilmi')->with('status', 'store');
-        } else {
-            // Redirect to default news index with success message
-            Alert::success('Berhasil', 'Berita berhasil ditambahkan!');
-            return redirect()->route('news.index')->with('status', 'store');
-        }
+    
+        // Redirect kembali ke halaman indeks berita
+        return redirect()->route('news.index')->with('status', 'store');
     }
+    
 
     public function show($id)
 {
@@ -184,18 +163,7 @@ public function dashboardHilmi()
     $news = News::findOrFail($id);
     $latestNews = News::orderBy('tanggal', 'desc')->take(3)->get();
     
-    if (Auth::check()) {
-        $role = Auth::user()->role;
-
-        if ($role === 'hilmi') {
-            return view('news.hilmi',  compact('news', 'latestNews'));
-
-        } elseif ($role === 'erlangga') {
-            return view('news.erlangga',  compact('news', 'latestNews'));
-
-        }
-    }
-
+ 
 return view('news.show', compact('news', 'latestNews'));
 
 }
@@ -301,10 +269,12 @@ return view('news.show', compact('news', 'latestNews'));
     // Update news content with processed HTML
     $news->isi = $description;
 
-    $news->save();
+   // Tampilkan pesan sukses menggunakan SweetAlert
+Alert::success('Berhasil', 'Berita berhasil ditambahkan!');
 
+// Redirect kembali ke halaman indeks berita
+return redirect()->route('news.index')->with('status', 'update');
     // Redirect back to news index with success message
-    return redirect()->route('news.index')->with('status', 'update');
 }
 
     

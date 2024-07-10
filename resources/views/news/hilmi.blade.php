@@ -21,23 +21,23 @@
     <header class="bg-white-500 text-white text-center py-12">
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900">About Us</h2>
     </header>
+    <p class="mt-4 text-gray-700 max-w-2xl mx-auto text-center ">Kami adalah sebuah tim yang berkomitmen untuk menyediakan solusi inovatif dan terdepan dalam industri kami. Dengan berbagai latar belakang yang beragam namun saling melengkapi, kami memadukan keahlian teknis, kreativitas, dan visi strategis untuk menghadirkan produk dan layanan yang tidak hanya memenuhi kebutuhan klien kami, tetapi juga mengatasi tantangan yang kompleks dalam pasar global yang dinamis.</p>
 
     <section class="text-center py-12 px-4">
-        <div class="bg-gray-500">
-      <h2 class="text-2xl text-white font-bold">Mission And Values</h2>
-      <p class="mt-4 text-white max-w-2xl mx-auto">
+      <h2 class="text-2xl font-bold">Mission And Values</h2>
+      <p class="mt-4 text-gray-700 max-w-2xl mx-auto">
         Our mission is to provide exceptional healthcare services with a focus on availability, reliability, and support.
       </p>
       <div class="flex justify-center space-x-8 mt-8 animate-fadeIn">
         <div class="transition transform hover:scale-110">
-          <h3 class="text-xl text-white font-bold" >85+</h3>
-          <p class="text-white">Specialists</p>
+          <h3 class="text-xl font-bold" >85+</h3>
+          <p class="text-gray-700">Specialists</p>
         </div>
         <div class="transition transform hover:scale-110">
-          <h3 class="text-xl text-white font-bold" >25+</h3>
-          <p class="text-white">Years of Experience</p>
+          <h3 class="text-xl font-bold" >25+</h3>
+          <p class="text-gray-700">Years of Experience</p>
         </div>
-      </div></div>
+      </div>
     </section>
 @endsection
 
@@ -46,7 +46,7 @@
         @if(!$news->isEmpty())
             <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-center justify-center">
                 <div class="mx-auto max-w-2xl text-center lg:mx-0">
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900">Today's News</h2>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl py-12 font-bold tracking-tight text-gray-900">Today's News</h2>
                     <p class="mt-4 text-lg sm:text-xl text-gray-600 leading-7">Hot News.</p>
                 </div>
             </div>

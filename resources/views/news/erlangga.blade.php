@@ -62,28 +62,23 @@
     </div>
 </div>
 @endsection
-<!-- Meet Our Team Section -->
 @section('team')
-<div class="bg-white py-12 sm:py-20">
-
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 ">
+<div class="bg-white py-12 sm:py-20 lg">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="text-center">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 ">Meet Our Team</h2>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900">Meet Our Team</h2>
             <p class="mt-4 text-lg sm:text-xl text-gray-600 leading-7 max-w-2xl mx-auto">
                 Kenali tim kami yang bekerja keras untuk menyediakan berita terbaik untuk Anda.
             </p>
         </div>
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 flex">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Main Content -->
             @foreach ($tim as $t)
-
-            <div class="flex-1 pl-8 pr-8">
-                <div class="bg-white p-6 rounded-lg shadow flex items-center">
-                    <img src="{{ asset('storage/' . $t->image) }}" class="w-24 h-24 object-cover rounded-full mr-4" alt="Profile Image">
-                    <div>
-                        <h5 class="text-2xl font-bold mb-2">{{ $t->name }}</h5>
-                        <p class="text-sm text-gray-600">{{ $t->position }}</p>
-                    </div>
+            <div class="bg-white p-6 rounded-lg shadow flex items-center">
+                <img src="{{ asset('storage/' . $t->image) }}" class="w-24 h-24 object-cover rounded-full mr-4" alt="Profile Image">
+                <div>
+                    <h5 class="text-2xl font-bold mb-2 break-words">{{ $t->name }}</h5>
+                    <p class="text-sm text-gray-600">{{ $t->position }}</p>
                 </div>
             </div>
             @endforeach
@@ -91,6 +86,7 @@
     </div>
 </div>
 @endsection
+
 @section('contact')
 <!-- Contact Us Section -->
 <div class="bg-gray-800 text-gray-300 py-4">

@@ -35,6 +35,6 @@ class RegisteredUserController extends Controller
         ]);
 
         // You can customize the response or redirect as needed
-        return redirect('/')->with('success', 'Registration successful!'); // Redirect to home or login page
+        return redirect('/login')->with('success', 'Registration successful!'); // Redirect to home or login page
     }
 }

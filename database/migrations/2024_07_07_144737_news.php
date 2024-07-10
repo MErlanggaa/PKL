@@ -9,16 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {       Schema::create('news', function (Blueprint $table) {
-        $table->id();
-        $table->string('judul');
-        $table->string('tanggal');
-        $table->string('foto');
-        $table->text('isi');
-        $table->timestamps(); 
-    
-    });
+    public function up()
+    {
+        Schema::create('news', function (Blueprint $table) {
+            $table->id();
+            $table->string('judul');
+            $table->date('tanggal');
+            $table->string('foto');
+            $table->longText('isi');
+            $table->enum('role', ['hilmi', 'erlangga']); // Menggunakan tipe enum dengan opsi 'hilmi' dan 'erlangga'
+            $table->timestamps();
+        });
 }
 
     /**

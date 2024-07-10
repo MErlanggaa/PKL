@@ -16,7 +16,7 @@ return new class extends Migration
                 $table->string('name');
                 $table->string('email')->unique();
                 $table->string('password');
-                $table->string('role'); // Kolom untuk role (hilmi/erlangga)
+                $table->enum('role', ['hilmi', 'erlangga']); // Menggunakan tipe enum dengan opsi 'hilmi' dan 'erlangga'
                 $table->timestamps();
             });
     }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h3 class="text-4xl font-semibold mb-6 text-center p-8 shadow-md" > Admin Panel </h3> 
+<h3 class="text-4xl font-semibold mb-6 text-center p-8 shadow-md" > Management Artikelw</h3> 
 
 <div class="container mx-auto p-2">
     <div class="bg-white shadow-2xl rounded-lg p-6 mt-8">
@@ -31,7 +31,6 @@
                             <td class="px-4 py-2">{{ $news->judul }}</td>
                             <td class="px-4 py-2">{{ $news->tanggal }}</td>
                             <td class="px-4 py-2">
-                                <a href="{{ route('news.show', $news->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">View</a>
                                 <a href="{{ route('news.edit', $news->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded">Edit</a>
                                 <form action="{{ route('news.destroy', $news->id) }}" method="POST" class="inline">
                                     @csrf

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -13,13 +12,15 @@ class RoleMiddleware
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string  $role
+     * @param  string  $roles
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $role)
+    public function handle(Request $request, Closure $next, $roles)
     {
-        if (!Auth::check() || Auth::user()->role !== $role) {
-            abort(403, 'Unauthorized action.');
+        $rolesArray = explode(',', $roles);
+
+        if (!Auth::check() || !in_array(Auth::user()->role, $rolesArray)) {
+            return response()->json(['message' => 'Forbidden'], 403);
         }
 
         return $next($request);

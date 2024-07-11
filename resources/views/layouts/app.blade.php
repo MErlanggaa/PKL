@@ -18,12 +18,14 @@
 </head>
 <body>
 
-@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit','dashboard.erlangga','dashboard.hilmi']))
+@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit','dashboard.erlangga','dashboard.hilmi','news.show']))
     @include('layouts.bar.navbar')
 @endif
 
-@if (Route::currentRouteName() === 'dashboard.erlangga' || Route::currentRouteName() === 'dashboard.hilmi')
-@include('layouts.bar.navbaruser')
+@if (Route::currentRouteName() === 'dashboard.erlangga' || 
+     Route::currentRouteName() === 'dashboard.hilmi' ||
+     Route::currentRouteName() === 'news.show')
+     @include('layouts.bar.navbaruser')
 @endif
 <div class="row">
   @yield('hero')
@@ -34,7 +36,7 @@
 
 </div>
 
-@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit' , 'news.search','team.index','news']))
+@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit' , 'news.search','team.index','news.show','news']))
 @include('layouts.bar.footer')
  
 @endif

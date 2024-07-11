@@ -54,15 +54,12 @@ Route::middleware(['guest', 'setguest:erlangga'])->group(function () {
     Route::get('/dashboard/erlangga', [NewsController::class, 'index'])->name('dashboard.erlangga')->defaults('role', 'erlangga');
     Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 
-    
-
 });
 Route::middleware(['guest', 'setguest:hilmi'])->group(function () {
     Route::get('/dashboard/hilmi', [NewsController::class, 'index'])->name('dashboard.hilmi')->defaults('role', 'hilmi');
     Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
 
 });
-
 
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

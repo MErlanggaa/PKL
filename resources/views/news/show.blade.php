@@ -13,6 +13,7 @@
             </div>
 
             <p class="mt-4 leading-relaxed">{!! $news->isi !!}</p>
+            
         </div>
     </div>
 

@@ -18,7 +18,7 @@
 </head>
 <body>
 
-@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit','dashboard.erlangga','dashboard.hilmi','news.show']))
+@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit','dashboard.erlangga','dashboard.hilmi','news.show','team.create']))
     @include('layouts.bar.navbar')
 @endif
 
@@ -36,7 +36,7 @@
 
 </div>
 
-@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit' , 'news.search','team.index','news.show','news']))
+@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit' , 'news.search','team.index','news.show','news','news.index']))
 @include('layouts.bar.footer')
  
 @endif

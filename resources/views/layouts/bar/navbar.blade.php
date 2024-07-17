@@ -14,10 +14,12 @@
                             <a href="{{ route('logout') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
                                 Logout
                             </a>
+                           
                         </div>
+                        
                     </div>
                 </div>
-
+            
         
 
                 <div class="-mr-2 flex md:hidden">

@@ -38,7 +38,7 @@ class NewsController extends Controller
         // Default logic if no role is set
         return redirect('/');
     }
-    public function indexx()
+    public function ix()
     {
         if (Auth::check()) {
             $userRole = Auth::user()->role;

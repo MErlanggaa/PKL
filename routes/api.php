@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\NewssController;
+use App\Http\Controllers\Api\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,8 +16,17 @@ use App\Http\Controllers\Api\NewssController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+Route::get('news/all', [NewssController::class, 'index']);
+Route::get('news/{id}', [NewssController::class, 'show']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('news', [NewssController::class, 'store']);
+    Route::put('news/{id}', [NewssController::class, 'update']);
+    Route::delete('news/{id}',[NewssController::class, 'destroy']);
+    
+
 });
 
-Route::get('news', [NewssController::class, 'index']);

@@ -9,11 +9,8 @@ class News extends Model
 {
     use HasFactory;
     public $timestamps = true;
+    protected $table = 'news';
 
-    public $fillable = [
-        'judul',
-        'tanggal',
-        'foto',
-        'isi'
-        ];
+    protected $guarded = [];
+
 }

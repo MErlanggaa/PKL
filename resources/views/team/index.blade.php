@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('content')
 @php
@@ -15,57 +15,71 @@
     }
 @endphp
 
-<div class="container mx-auto py-8">
-  <div class="w-full mb-8">
-      <div class="bg-white shadow-md rounded-lg">
-          <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-              <h6 class="font-semibold text-gray-700">Manajemen Team</h6>
-              <a href="/team/create" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add</a>
-          </div>
-          <div class="p-6 overflow-x-auto">
-              <table class="min-w-full bg-white">
-                  <thead>
-                      <tr>
-                          <th class="text-center text-gray-600 text-xs font-semibold uppercase tracking-wider">Image</th>
-                          <th class="text-center text-gray-600 text-xs font-semibold uppercase tracking-wider">Name</th>
-                          <th class="text-center text-gray-600 text-xs font-semibold uppercase tracking-wider">Position</th>
-                          <th class="text-center text-gray-600 text-xs font-semibold uppercase tracking-wider">Action</th>
-                      </tr>
-                  </thead>
-                  <tbody class="text-center">
-                      @foreach ($team as $t)
-                      <tr class="border-b border-gray-200">
-                          <td class="px-4 py-2">
-                              @if($t->image)
-                              <a href="{{ asset('storage/' . $t->image) }}" data-lightbox="team-images">
-                                  <img src="{{ asset('storage/' . $t->image) }}" class="rounded-full shadow w-24 h-24 object-cover mx-auto">
-                              </a>
-                              @else
-                              <span>No Image</span>
-                              @endif
-                          </td>
-                          <td class="px-4 py-2">{{ $t->name }}</td>
-                          <td class="px-4 py-2">{{ $t->position }}</td>
-                          <td class="px-4 py-2">
-                              <div class="flex justify-center space-x-4">
-                                  <a href="{{ route('team.edit', $t->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Edit</a>
-                                  <form action="{{ route('team.destroy', $t->id) }}" method="POST" class="inline">
-                                      @method('DELETE')
-                                      @csrf
-                                      <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
-                                  </form>
-                              </div>
-                          </td>
-                      </tr>
-                      @endforeach
-                  </tbody>
+<div class="w-full px-6 py-6 mx-auto">
+    <!-- table 1 -->
+
+    <div class="flex flex-wrap -mx-3">
+      <div class="flex-none w-full max-w-full px-3">
+        <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+          <div class="flex justify-between items-center mb-4">
+            <a href="/team/create" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Add Team</a> 
+        </div>
+          <div class="flex-auto px-0 pt-0 pb-2">
+            <div class="p-0 overflow-x-auto">
+              <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
+                <thead class="align-bottom">
+                    <tr>
+                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Image</th>
+                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Name</th>
+                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Position</th>
+                        <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($team as $t)
+                        
+                    
+                  <tr>
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <div class="flex px-2 py-1">
+                        <div class="flex flex-col justify-center">
+                            @if($t->image)
+                            <a href="{{ asset('storage/' . $t->image) }}" data-lightbox="team-images">
+                                <img src="{{ asset('storage/' . $t->image) }}" class="rounded-full  shadow w-16 h-16 object-cover mx-auto">
+                            </a>
+                            @else
+                            <span>No Image</span>
+                            @endif
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <p class="mb-0 text-xs font-semibold leading-tight">{{ $t->name }}</p>
+                    </td>
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <p class="mb-0 text-xs font-semibold leading-tight">{{ $t->position }}</p>
+                    </td>
+                    <td class="p-2 bg-transparent border-b whitespace-nowrap shadow-transparent">
+                      <a href="{{ route('team.edit', $t->id) }}" class="text-xs font-semibold leading-tight text-slate-400"> Edit </a>
+                    </td>
+              
+                    <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                        <form action="{{ route('team.destroy', $t->id) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                      <button type="submit"  class="text-xs font-semibold leading-tight text-slate-400" onclick="return confirm('Are you sure you want to delete this team?')">Delete</button>
+                    </form>
+                    </td>
+                  </tr>
+                    @endforeach
+                </tbody>
               </table>
+            </div>
           </div>
+        </div>
       </div>
-      <div class="mt-4">
-          <a href="{{ $dashboardRoute }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Back</a>
-      </div>
-  </div>
+    </div>
 </div>
+
 
 @endsection

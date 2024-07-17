@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('news.index');
 
     Route::get('/news/search', [NewsController::class, 'search'])->name('news.search');
-    Route::get('/news', [NewsController::class, 'indexx'])->name('news');
+    Route::get('/news', [NewsController::class, 'ix'])->name('news');
 
     Route::get('/team', [TeamController::class, 'index'])->name('team.index');
     Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
@@ -46,8 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/team/{id}/edit', [TeamController::class, 'edit'])->name('team.edit');
     Route::put('/team/{id}', [TeamController::class, 'update'])->name('team.update');
     Route::delete('/team/{id}', [TeamController::class, 'destroy'])->name('team.destroy');
-    Route::get('/logout', function () {
-    })->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    
 });
 
 Route::middleware(['guest', 'setguest:erlangga'])->group(function () {
@@ -62,6 +62,5 @@ Route::middleware(['guest', 'setguest:hilmi'])->group(function () {
 });
 
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 

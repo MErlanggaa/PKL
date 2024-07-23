@@ -4,6 +4,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,14 @@ Route::middleware(['auth'])->group(function () {
      Route::get('/news/{id}/edit', [NewsController::class, 'edit'])->name('news.edit');
       Route::put('/news/{id}', [NewsController::class, 'update'])->name('news.update');
      Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+
+Route::get('/post',[PageController::class, 'index'])->name('post.index');
+Route::get('page/create', [PageController::class, 'create'])->name('post.create');
+Route::post('page/store', [PageController::class, 'store'])->name('post.store');
+Route::delete('/page/{id}', [PageController::class, 'destroy'])->name('post.destroy');
+Route::get('/page/{id}/edit', [PageController::class, 'edit'])->name('post.edit');
+Route::put('/page/{id}', [PageController::class, 'update'])->name('post.update');
+
 
  Route::get('/team', [TeamController::class, 'index'])->name('team.index');
     Route::get('/team/create', [TeamController::class, 'create'])->name('team.create');

@@ -1,19 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-@php
-    $dashboardRoute = '';
-    if (auth()->check()) {
-        $userRole = auth()->user()->role;
-        if ($userRole === 'erlangga') {
-            $dashboardRoute = route('dashboard.erlangga');
-        } elseif ($userRole === 'hilmi') {
-            $dashboardRoute = route('dashboard.hilmi');
-        } else {
-            $dashboardRoute = route('home'); // Default route if role not defined
-        }
-    }
-@endphp
+
 
 <div class="w-full px-6 py-6 mx-auto">
     <!-- table 1 -->

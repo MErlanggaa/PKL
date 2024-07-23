@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    @if (in_array(Route::currentRouteName(), ['news.create', 'news.edit']))
+    @if (in_array(Route::currentRouteName(), ['news.create', 'post.create', 'post.edit','news.edit']))
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -18,7 +18,7 @@
 </head>
 <body>
 
-@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit','dashboard.erlangga','dashboard.hilmi','news.show','team.create']))
+@if (!in_array(Route::currentRouteName(), ['news.create', 'news.edit','dashboard.erlangga','dashboard.hilmi','news.show','team.create','post.create','post.edit']))
     @include('layouts.bar.navbar')
 @endif
 

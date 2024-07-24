@@ -22,8 +22,8 @@
                 </div>
                 <input type="hidden" id="cropped_image" name="foto">
                 <div class="mb-4">
-                    <label for="judul" class="block text-gray-700 text-sm font-bold mb-2">Judul</label>
-                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="judul" name="judul" value="{{ $page->judul }}" required>
+                    <label for="judull" class="block text-gray-700 text-sm font-bold mb-2">Judul</label>
+                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="judull" name="judull" value="{{ $page->judull }}" required>
                 </div>
                 <div class="mb-4">
                     <label for="subjudul" class="block text-gray-700 text-sm font-bold mb-2">Subjudul</label>

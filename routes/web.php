@@ -17,7 +17,9 @@ use App\Http\Controllers\PageController;
 |
 */    
 
-
+Route::get('/', function () {
+    return view('news.hilmii');
+});
 
 Route::middleware(['redirectBasedOnRole'])->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

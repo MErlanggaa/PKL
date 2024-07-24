@@ -7,6 +7,8 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Models\Page; // Perbarui namespace di sini
+use Image;
 use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -25,14 +27,17 @@ class NewsController extends Controller
             // Logic for Erlangga
             $news = News::where('role', 'erlangga')->get();
             $tim = Team::where('role', 'erlangga')->get();
+            $page = Page::where('role', 'erlangga')->get();
+
             $berita_terbaru = $news->first();
-            return view('news.erlangga', compact('news','tim','berita_terbaru'));
+            return view('news.erlanggaa', compact('news','tim','berita_terbaru','page'));
         } elseif ($role == 'hilmi') {
             // Logic for Hilmi
             $news = News::where('role', 'hilmi')->get();
             $tim = Team::where('role', 'hilmi')->get();
+            $page = Page::where('role', 'hilmi')->get();
             $berita_terbaru = $news->first();
-            return view('news.hilmi', compact('news','tim','berita_terbaru'));
+            return view('news.hilmii', compact('news','tim','berita_terbaru','page'));
         }
 
         // Default logic if no role is set

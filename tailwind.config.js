@@ -6,7 +6,11 @@ export default {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        judul : ["Domine", "serif"]
+      }
+    },
   },
   plugins: [],
 }

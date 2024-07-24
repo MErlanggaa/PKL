@@ -38,7 +38,7 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string|max:9',
+            'judull' => 'required|string|max:9',
             'subjudul' => 'required|string|max:12',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for the image
         ]);
@@ -63,7 +63,7 @@ class PageController extends Controller
     
         // Save the post to the database
         Page::create([
-            'judul' => $request->judul,
+            'judull' => $request->judull,
             'subjudul' => $request->subjudul,
             'foto' => $filename,
             'role' => auth()->user()->role,
@@ -89,7 +89,7 @@ class PageController extends Controller
         $page = Page::findOrFail($id);
     
         $request->validate([
-            'judul' => 'required|string|max:9',
+            'judull' => 'required|string|max:9',
             'subjudul' => 'required|string|max:12',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for the image
         ]);
@@ -119,7 +119,7 @@ class PageController extends Controller
         }
     
         // Update the page data
-        $page->judul = $request->judul;
+        $page->judull = $request->judull;
         $page->subjudul = $request->subjudul;
         $page->role = auth()->user()->role;
         $page->save();

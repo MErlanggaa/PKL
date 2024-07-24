@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.show')
 
 @section('content')
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 flex">
@@ -25,8 +25,4 @@
 </div>
 @endsection
 
-@section('footer')
-<div class="bg-gray-800 text-white py-4 px-6 mt-8">
-    <h2 class="text-xl font-semibold">Footer</h2>
-</div>
-@endsection
+

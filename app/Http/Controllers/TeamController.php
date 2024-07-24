@@ -35,41 +35,41 @@ class TeamController extends Controller
     }
 
     public function store(Request $request)
-{
-    // Validate data
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|string|max:255',
-        'position' => 'required|string|max:255',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for the image
-    ]);
-
-    // Check if validation fails
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
-    }
-
-    try {
-        // Save the image to storage
-        $imagePath = $request->file('image')->store('team_images', 'public');
-
-        // Save the team data to the database
-        Team::create([
-            'name' => $request->name,
-            'position' => $request->position,
-            'image' => $imagePath,
-            'role' => Auth::user()->role, // Set the role of the creator
+    {
+        // Validate data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for the image
         ]);
-
-        // Redirect or go back to the previous page with a success message
-        return redirect('/team')->with('success', 'Team added successfully!');
-    } catch (\Exception $e) {
-        // Handle if there is an error while saving the image or team data
-        return redirect()->back()->with('error', 'Failed to add team: ' . $e->getMessage());
+    
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+    
+        try {
+            // Save the image to storage/team directory
+            $imagePath = $request->file('image')->store('team', 'public');
+    
+            // Save the team data to the database
+            Team::create([
+                'name' => $request->name,
+                'position' => $request->position,
+                'image' => $imagePath,
+                'role' => Auth::user()->role, // Set the role of the creator
+            ]);
+    
+            // Redirect or go back to the previous page with a success message
+            return redirect('/team')->with('success', 'Team added successfully!');
+        } catch (\Exception $e) {
+            // Handle if there is an error while saving the image or team data
+            return redirect()->back()->with('error', 'Failed to add team: ' . $e->getMessage());
+        }
     }
-}
-
+    
 
     public function edit ($id)
     {

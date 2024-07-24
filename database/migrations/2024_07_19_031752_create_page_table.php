@@ -15,7 +15,7 @@ class CreatePageTable extends Migration
     {
         Schema::create('page', function (Blueprint $table) {
             $table->id();
-            $table->string('judul'); // Tambahkan tanda kutip di sini
+            $table->string('judull'); // Tambahkan tanda kutip di sini
             $table->string('subjudul'); // Tambahkan tanda kutip di sini
             $table->string('foto'); // Tambahkan tanda kutip di sini
             $table->enum('role', ['hilmi', 'erlangga']); // Menggunakan tipe enum dengan opsi 'hilmi' dan 'erlangga'
